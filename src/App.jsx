@@ -12,7 +12,7 @@ function App() {
   return (
     <div style={{ minHeight: "100vh" }} >
       <Container fluid className="mb-1">
-        <h1 className='my-4 fs-1'>Panel de Administracion de Prestamos</h1>
+        <h1 className='my-4 dashboard-title'>Panel de Administracion de Prestamos</h1>
         <Row className="justify-content-center">
           <DashboardCard text={"Prestamos Activos"} data={loansState.length} icon={<CiDollar size={'20'} />} />
           <DashboardCard text={"Total Prestado"} data={total} icon={<CiAlignBottom size={'20'} />} dollarSign />
