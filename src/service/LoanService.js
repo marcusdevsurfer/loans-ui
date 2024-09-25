@@ -4,7 +4,7 @@ export const getloans = () => [
       "client": "Marco Gonzalez",
       "amount": 1400,
       "interest": 0,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -12,7 +12,7 @@ export const getloans = () => [
       "client": "Rosario Ramos",
       "amount": 8000,
       "interest": 10,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -20,7 +20,7 @@ export const getloans = () => [
       "client": "Dalia Lavanderia",
       "amount": 5000,
       "interest": 10,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -28,7 +28,7 @@ export const getloans = () => [
       "client": "Brenda Bello",
       "amount": 6000,
       "interest": 10,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -36,7 +36,7 @@ export const getloans = () => [
       "client": "Ricardo Cobos",
       "amount": 100000,
       "interest": 6,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -44,7 +44,7 @@ export const getloans = () => [
       "client": "Rocio Covarrubias",
       "amount": 10000,
       "interest": 10,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -52,7 +52,7 @@ export const getloans = () => [
       "client": "Carmen Covarrubias",
       "amount": 50000,
       "interest": 0,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -60,7 +60,7 @@ export const getloans = () => [
       "client": "Salma Salazar",
       "amount": 10000,
       "interest": 10,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
     {
@@ -68,7 +68,7 @@ export const getloans = () => [
       "client": "Kevin Mojica",
       "amount": 3000,
       "interest": 10,
-      "status": "pending",
+      "status": "active",
       "date": "date"
     },
 
