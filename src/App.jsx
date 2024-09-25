@@ -16,14 +16,12 @@ function App() {
   return (
     <Container>
       <h1 className='my-4 dashboard-title'>Panel de Administracion de Prestamos</h1>
-
       <Row className="justify-content-center">
         <DashboardCard text={"Prestamos Activos"} data={loansState.length} icon={<CiDollar size={'20'} />} />
         <DashboardCard text={"Total Prestado"} data={total} icon={<CiAlignBottom size={'20'} />} dollarSign />
         <DashboardCard text={"Clientes"} data={loansState.length} icon={<CiUser size={'20'} />} />
         <DashboardCard text={"Pagos del mes"} data={payByMonth} icon={<CiCalendarDate size={'20'} />} dollarSign />
       </Row>
-
       <Stack direction='horizontal' className='my-4' gap={1}>
         <h2 className='dashboard-title'>Lista de prestamos</h2>
         <Button variant='dark ms-auto'>Nuevo Préstamo</Button>
