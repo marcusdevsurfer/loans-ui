@@ -1,0 +1,10 @@
+.loans-table-section {
+    border-style: solid;
+    border-color: rgb(0, 0, 0, 0.176);
+    border-radius: 6px;
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 6px;
+    border-width: 1px;
+}
