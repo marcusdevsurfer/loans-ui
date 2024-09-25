@@ -10,7 +10,7 @@ export const LoansTable = ({ loans }) => {
                 <h2 className='dashboard-title'>Lista de prestamos</h2>
                 <Button variant='dark' className='ms-auto'>Nuevo Préstamo</Button>
             </Stack>
-            <Table>
+            <Table responsive striped borderless>
                 <thead>
                     <tr>
                         <th className='text-secondary'>Cliente</th>
