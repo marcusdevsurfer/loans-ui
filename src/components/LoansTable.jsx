@@ -6,27 +6,27 @@ import './css/LoansTable.css'
 export const LoansTable = ({ loans }) => {
     return (
         <div className='loans-table-section'>
-            <Stack direction='horizontal' className='m-3' gap={1}>
+            <Stack direction='horizontal' className='my-4' gap={1}>
                 <h2 className='dashboard-title'>Lista de prestamos</h2>
-                <Button variant='dark ms-auto'>Nuevo Préstamo</Button>
+                <Button variant='dark' className='ms-auto'>Nuevo Préstamo</Button>
             </Stack>
             <Table>
                 <thead>
                     <tr>
-                        <th className='text-secondary p-3'>Cliente</th>
-                        <th className='text-secondary p-3'>Monto</th>
-                        <th className='text-secondary p-3'>Interes</th>
-                        <th className='text-secondary p-3'>Estado</th>
+                        <th className='text-secondary'>Cliente</th>
+                        <th className='text-secondary'>Monto</th>
+                        <th className='text-secondary'>Interes</th>
+                        <th className='text-secondary'>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         loans.map((loan) =>
                             <tr key={loan?.id}>
-                                <td className='p-3'>{`${loan?.client}`}</td>
-                                <td className='p-3'>{`$${loan?.amount.toLocaleString('en')}`}</td>
-                                <td className='p-3'>{`${loan?.interest}%`}</td>
-                                <td className='p-3'>{loan?.status === 'active' && 'Activo'}</td>
+                                <td className=''>{`${loan?.client}`}</td>
+                                <td className=''>{`$${loan?.amount.toLocaleString('en')}`}</td>
+                                <td className=''>{`${loan?.interest}%`}</td>
+                                <td className=''>{loan?.status === 'active' && 'Activo'}</td>
                             </tr>
                         )
                     }
