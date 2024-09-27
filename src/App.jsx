@@ -1,13 +1,11 @@
-import './App.css'
 import { useState } from 'react';
 import { getloans } from './service/LoanService';
 import { DashboardCard } from './components/DashboardCard'
 import { LoansTable } from './components/LoansTable';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Stack from 'react-bootstrap/Stack'
-import Button from 'react-bootstrap/Button'
 import { CiDollar, CiUser, CiAlignBottom, CiCalendarDate } from "react-icons/ci";
+import './App.css'
 
 function App() {
   const [loansState, setLoansState] = useState(getloans)
