@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row'
 import { CiDollar, CiUser, CiAlignBottom, CiCalendarDate } from "react-icons/ci";
 import './App.css'
 
+
 function App() {
   const [loansState, setLoansState] = useState(getloans)
   const total = loansState.map((e) => e.amount).reduce((pv, cv) => pv + cv)
