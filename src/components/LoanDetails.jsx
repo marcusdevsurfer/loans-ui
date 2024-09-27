@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { getLoanById } from "../service/LoanService"
+import { LoanInfo } from "./LoanInfo"
+import { Container } from "react-bootstrap"
 
 export const LoanDetails = ({ id }) => {
     const [loanState, setLoansState] = useState({})
@@ -21,8 +23,8 @@ export const LoanDetails = ({ id }) => {
                     No existe
                 </h1>
                 :
-                <h1>
-                    {loanState?.client}
-                </h1>
+                <Container>
+                    <LoanInfo loan={loanState} />
+                </Container>
     )
 }
