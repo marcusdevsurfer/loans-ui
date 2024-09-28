@@ -16,7 +16,7 @@ export const LoanInfo = ({ loan }) => {
                 </Col>
                 <Col>
                     <h5 className='font-subtitle'>Monto de prestamo</h5>
-                    <p className='font-text'>${loan?.amount}</p>
+                    <p className='font-text'>${loan?.amount.toLocaleString()}</p>
                 </Col>
             </Row>
             <Row direction='horizontal'>
@@ -27,11 +27,16 @@ export const LoanInfo = ({ loan }) => {
                         <p className='font-text'>{loan?.installments}</p>
                     </Col>
                 }
-                <Col>
-                    <h5 className='font-subtitle'>Monto de cuota</h5>
-                    {!loan.installments && <p className='font-text'>{`$${interestAmount}`}</p>}
-                    {loan.installments && <p className='font-text'>{`$${installmentAmount}`}</p>}
-                </Col>
+
+                {
+                    loan.interest > 0 &&
+                    <Col>
+                        <h5 className='font-subtitle'>Monto de cuota</h5>
+                        {!loan.installments && <p className='font-text'>{`$${interestAmount.toLocaleString()}`}</p>}
+                        {loan.installments && <p className='font-text'>{`$${installmentAmount.toLocaleString()}`}</p>}
+                    </Col>
+                }
+
             </Row>
         </div>
     )
