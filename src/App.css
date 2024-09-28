@@ -11,10 +11,10 @@
     font-weight: bold;
 }
 
-.font-subtitle {
-    font-size: 0.875rem;
-}
-
 .font-text {
     font-size: 1.125rem;
+}
+
+.font-subtitle {
+    font-size: 0.875rem;
 }
