@@ -4,6 +4,8 @@ import '../App.css'
 import './css/LoanDetails.css'
 
 export const LoanInfo = ({ loan }) => {
+    const interestAmount = (loan.amount * loan.interest) / 100
+    const installmentAmount = loan.amount / loan.installments
     return (
         <div className='loan-details-card'>
             <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
@@ -18,13 +20,17 @@ export const LoanInfo = ({ loan }) => {
                 </Col>
             </Row>
             <Row direction='horizontal'>
-                <Col>
-                    <h5 className='font-subtitle'>Cuotas</h5>
-                    <p className='font-text'>20</p>
-                </Col>
+                {
+                    loan.installments &&
+                    <Col>
+                        <h5 className='font-subtitle'>Cuotas</h5>
+                        <p className='font-text'>{loan?.installments}</p>
+                    </Col>
+                }
                 <Col>
                     <h5 className='font-subtitle'>Monto de cuota</h5>
-                    <p className='font-text'>$3000</p>
+                    {!loan.installments && <p className='font-text'>{`$${interestAmount}`}</p>}
+                    {loan.installments && <p className='font-text'>{`$${installmentAmount}`}</p>}
                 </Col>
             </Row>
         </div>
