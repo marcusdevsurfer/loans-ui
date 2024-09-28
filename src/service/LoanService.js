@@ -50,10 +50,11 @@ export const getloans = () => [
   {
     "id": 7,
     "client": "Carmen Covarrubias",
-    "amount": 50000,
-    "interest": 0,
+    "amount": 60000,
+    "interest": 20,
     "status": "active",
-    "date": "date"
+    "date": "date",
+    "installments": 20
   },
   {
     "id": 8,
@@ -69,8 +70,9 @@ export const getloans = () => [
     "amount": 3000,
     "interest": 10,
     "status": "active",
-    "date": "date"
-  },
+    "date": "date",
+    "installments": 3
+  }
 ]
 
 export const getLoanById = (id) => {
