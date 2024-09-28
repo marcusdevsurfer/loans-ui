@@ -16,17 +16,16 @@ export const LoansTable = ({ loans }) => {
                         <th className='text-secondary'>Monto</th>
                         <th className='text-secondary'>Interes</th>
                         <th className='text-secondary'>Estado</th>
-                        <th className=''></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         loans.map((loan) =>
                             <tr key={loan?.id}>
-                                <td className='p-3'>{`${loan?.client}`}</td>
-                                <td className='p-3'>{`$${loan?.amount.toLocaleString('en')}`}</td>
-                                <td className='p-3'>{`${loan?.interest}%`}</td>
-                                <td className='p-3'>{loan?.status === 'active' && 'Activo'}</td>
+                                <td>{`${loan?.client}`}</td>
+                                <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
+                                <td>{`${loan?.interest}%`}</td>
+                                <td>{loan?.status === 'active' && 'Activo'}</td>
                                 <td>
                                     <Link href={`/loan-details/${loan?.id}`}>
                                         <a className='btn btn-sm btn-dark'>Ver</a>
