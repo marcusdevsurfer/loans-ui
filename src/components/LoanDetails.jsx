@@ -3,6 +3,7 @@ import { getLoanById } from "../service/LoanService"
 import { LoanInfo } from "./LoanInfo"
 import { Container } from "react-bootstrap"
 import { LoanProgress } from "./LoanProgress"
+import { LoanPaymentSchedule } from "./LoanPaymentSchedule"
 
 export const LoanDetails = ({ id }) => {
     const [loanState, setLoansState] = useState({})
@@ -26,7 +27,8 @@ export const LoanDetails = ({ id }) => {
                 :
                 <Container>
                     <LoanInfo loan={loanState} />
-                    <LoanProgress />
+                    {loanState.installments > 0 && <LoanProgress loan={loanState} />}
+                    <LoanPaymentSchedule loan={loanState} />
                 </Container>
     )
 }
