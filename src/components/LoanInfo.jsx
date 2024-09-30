@@ -7,7 +7,7 @@ export const LoanInfo = ({ loan }) => {
     const { amount, interest, installments } = loan
     const interestTotal = (amount * interest) / 100
     const loanTotalAmount = (interestTotal + amount)
-    const installmentAmount = (amount / installments)
+    const installmentAmount = (loanTotalAmount / installments)
     return (
         <div className='loan-details-card'>
             <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
@@ -33,9 +33,8 @@ export const LoanInfo = ({ loan }) => {
                         <p className='font-text'>{installments}</p>
                     </Col>
                 }
-
                 {
-                    interest > 0 &&
+                    interest > 0 && installments &&
                     <Col>
                         <h5 className='font-subtitle'>Monto de cuota</h5>
                         {!loan.installments && <p className='font-text'>{`$${interestTotal.toLocaleString()}`}</p>}
