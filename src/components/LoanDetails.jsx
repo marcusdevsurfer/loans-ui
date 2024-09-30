@@ -1,34 +1,49 @@
-import { useEffect, useState } from "react"
-import { getLoanById } from "../service/LoanService"
-import { LoanInfo } from "./LoanInfo"
-import { Container } from "react-bootstrap"
-import { LoanProgress } from "./LoanProgress"
-import { LoanPaymentSchedule } from "./LoanPaymentSchedule"
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import '../App.css'
+import './css/LoanDetails.css'
 
-export const LoanView = ({ id }) => {
-    const [loanState, setLoansState] = useState({})
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        setLoansState(getLoanById(id))
-        setIsLoading(false)
-    }, [])
-
+export const LoanDetails = ({ loan }) => {
+    const { amount, interest, installments } = loan
+    const interestTotal = (amount * interest) / 100
+    const loanTotalAmount = (interestTotal + amount)
+    const installmentAmount = (loanTotalAmount / installments)
     return (
-        isLoading
-            ?
-            'Loading'
-            :
-            !loanState
-                ?
-                <h1>
-                    No existe
-                </h1>
-                :
-                <Container>
-                    <LoanInfo loan={loanState} />
-                    {loanState.installments > 0 && <LoanProgress loan={loanState} />}
-                    <LoanPaymentSchedule loan={loanState} />
-                </Container>
+        <div className='loan-details-card'>
+            <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
+            <Row direction='horizontal'>
+                <Col>
+                    <h5 className='font-subtitle'>Cliente</h5>
+                    <p className='font-text'>{loan?.client}</p>
+                </Col>
+                <Col>
+                    <h5 className='font-subtitle'>Monto de prestamo</h5>
+                    <p className='font-text'>${amount.toLocaleString()}</p>
+                </Col>
+                <Col>
+                    <h5 className='font-subtitle'>Pago total</h5>
+                    <p className='font-text'>${loanTotalAmount.toLocaleString()}</p>
+                </Col>
+            </Row>
+            <Row direction='horizontal'>
+                {
+                    installments &&
+                    <Col>
+                        <h5 className='font-subtitle'>Cuotas</h5>
+                        <p className='font-text'>{installments}</p>
+                    </Col>
+                }
+                {
+                    interest > 0 && installments &&
+                    <Col>
+                        <h5 className='font-subtitle'>Monto de cuota</h5>
+                        {!loan.installments && <p className='font-text'>{`$${interestTotal.toLocaleString()}`}</p>}
+                        {loan.installments && <p className='font-text'>{`$${installmentAmount.toLocaleString()}`}</p>}
+                    </Col>
+                }
+                <Col>
+                </Col>
+            </Row>
+        </div>
     )
 }
