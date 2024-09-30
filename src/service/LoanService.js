@@ -50,7 +50,7 @@ export const getloans = () => [
   {
     "id": 7,
     "client": "Carmen Covarrubias",
-    "amount": 60000,
+    "amount": 50000,
     "interest": 20,
     "status": "active",
     "date": "date",
