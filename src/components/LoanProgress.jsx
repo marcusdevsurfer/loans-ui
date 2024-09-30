@@ -6,13 +6,15 @@ import { getPaymentsByLoanId } from "../service/PaymentsService"
 import '../App.css'
 import './css/LoanDetails.css'
 
-
 export const LoanProgress = ({ loan }) => {
+    const { id, amount, interest } = loan
+    const interestTotal = (amount * interest) / 100
+    const loanTotalAmount = (interestTotal + amount)
     const [paymentsState, setPaymentsState] = useState([])
     const progressPorcent = (paymentsState.length * 100) / loan.installments
     const paidAmount = paymentsState.map((payment => payment.amount)).reduce((pv, cv) => pv + cv, 0)
     useEffect(() => {
-        setPaymentsState(getPaymentsByLoanId(loan.id))
+        setPaymentsState(getPaymentsByLoanId(id))
     }, [])
     return (
         <div className="loan-details-card">
@@ -23,7 +25,7 @@ export const LoanProgress = ({ loan }) => {
                     <p className="text-start font-subtitle p-1">Total pagado: ${paidAmount.toLocaleString()}</p>
                 </Col>
                 <Col>
-                    <p className="text-end font-subtitle p-1">Restante: -${(loan.amount - paidAmount).toLocaleString()}</p>
+                    <p className="text-end font-subtitle p-1">Restante: -${(loanTotalAmount - paidAmount).toLocaleString()}</p>
                 </Col>
             </Row>
         </div>
