@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap"
 import { LoanProgress } from "./LoanProgress"
 import { LoanPaymentSchedule } from "./LoanPaymentSchedule"
 
-export const LoanDetails = ({ id }) => {
+export const LoanView = ({ id }) => {
     const [loanState, setLoansState] = useState({})
     const [isLoading, setIsLoading] = useState(true)
 
