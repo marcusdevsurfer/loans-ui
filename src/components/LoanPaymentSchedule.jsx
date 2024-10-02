@@ -28,7 +28,7 @@ export const LoanPaymentSchedule = ({ loan }) => {
                             <tr>
                                 <td>{i + 1}</td>
                                 <td>{payment?.date.toLocaleDateString()}</td>
-                                <td>{payment?.amount.toLocaleString()}</td>
+                                <td>{`$${payment?.amount.toLocaleString()}`}</td>
                             </tr>
                         ))
                     }
