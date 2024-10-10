@@ -36,7 +36,7 @@ export const LoanPaymentSchedule = ({ loan }) => {
                     Nuevo
                 </Button>
             </Stack>
-            <RegisterPaymentModal show={modalShow} onHide={() => setModalShow(false)} />
+            <RegisterPaymentModal show={modalShow} setModalShow={setModalShow} fetchData={fetchAllPaymentsByLoanId} />
             {paymentsState.length > 0 &&
                 <Table responsive striped>
                     <thead>
