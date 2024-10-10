@@ -5,27 +5,29 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import { useEffect, useState } from 'react'
 import { RegisterPaymentModal } from './RegisterPaymentModal';
+import { useParams } from 'wouter';
 
 export const LoanPaymentSchedule = ({ loan }) => {
-    const { id } = loan
+    const { id } = useParams()
     const [paymentsState, setPaymentsState] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
     const [modalShow, setModalShow] = useState(false);
 
     useEffect(() => {
         fetchAllPaymentsByLoanId(id)
     }, [])
 
-    const fetchAllPaymentsByLoanId = (id) => {
-        fetch(`http://127.0.0.1:3000/api/loans/${id}/payments`)
-            .then((response) => response.json())
-            .then(data => {
-                setPaymentsState(data)
-                setIsLoading(false)
-            })
-            .catch((e) => console.log(e))
+    const fetchAllPaymentsByLoanId = async (id) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const response = await fetch(`http://127.0.0.1:3000/api/loans/${parseInt(id)}/payments`, {
+            method: "GET",
+            headers: myHeaders
+        })
+        if (response.ok) {
+            const data = await response.json()
+            setPaymentsState(data)
+        }
     }
-
     return (
         <div className='loan-details-card'>
             <Stack direction='horizontal'>
@@ -35,8 +37,7 @@ export const LoanPaymentSchedule = ({ loan }) => {
                 </Button>
             </Stack>
             <RegisterPaymentModal show={modalShow} onHide={() => setModalShow(false)} />
-            {
-                !isLoading && paymentsState.length > 0 &&
+            {paymentsState.length > 0 &&
                 <Table responsive striped>
                     <thead>
                         <tr>
@@ -46,11 +47,10 @@ export const LoanPaymentSchedule = ({ loan }) => {
                         </tr>
                     </thead>
                     <tbody>
-
                         {paymentsState.map((payment, i) => (
                             <tr>
                                 <td>{i + 1}</td>
-                                <td>{payment?.date.toLocaleDateString()}</td>
+                                <td>{payment?.date}</td>
                                 <td>{`$${payment?.amount.toLocaleString()}`}</td>
                             </tr>
                         ))}
