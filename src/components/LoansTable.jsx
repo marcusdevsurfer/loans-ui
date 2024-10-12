@@ -27,7 +27,7 @@ export const LoansTable = ({ loans }) => {
                                 <td>{`${loan?.interest}%`}</td>
                                 <td>{loan?.status === 'active' && 'Activo'}</td>
                                 <td>
-                                    <Link href={`/loan-details/${loan?.id}`}>
+                                    <Link href={`admin/loan-details/${loan?.id}`}>
                                         <a className='btn btn-sm btn-dark'>Ver</a>
                                     </Link>
                                 </td>
