@@ -8,7 +8,7 @@ import App from './App.jsx'
 const Router = () => (
   <div>
     <Route path="/" component={App}></Route>
-    <Route path="/loan-details/:id">{params => <LoanView id={params.id}/>}</Route>
+    <Route path="admin/loan-details/:id">{params => <LoanView id={params.id}/>}</Route>
   </div>
 )
 
