@@ -3,18 +3,21 @@ import './css/LoanDetails.css'
 import Table from "react-bootstrap/Table"
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
+import Spinner from "react-bootstrap/Spinner"
 import { useEffect, useState } from 'react'
 import { RegisterPaymentModal } from './RegisterPaymentModal';
 import { useParams } from 'wouter';
 
 export const LoanPaymentSchedule = ({ loan }) => {
     const { id } = useParams()
+
     const API_URL_BASE = import.meta.env.VITE_API_URL;
     const API_URL_COMPLEMENT = `/api/payments/${id}`
     const API_URL = `${API_URL_BASE}${API_URL_COMPLEMENT}`
 
     const [paymentsState, setPaymentsState] = useState([])
     const [modalShow, setModalShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         fetchAllPaymentsByLoanId(id)
@@ -29,6 +32,7 @@ export const LoanPaymentSchedule = ({ loan }) => {
             const response = await fetch(API_URL, REQUEST_OPTIONS)
             const data = await response.json()
             setPaymentsState(data)
+            setIsLoading(false)
         } catch {
             (e) => console.log(e)
         }
@@ -36,14 +40,22 @@ export const LoanPaymentSchedule = ({ loan }) => {
 
     return (
         <div className='loan-details-card'>
-            <Stack direction='horizontal' className='mb-4'>
+            <Stack className='mb-4' direction='horizontal' gap={1}>
                 <h1 className="font-title m-0">Calendario de pagos</h1>
-                <Button size='sm' variant="dark" className='ms-auto' onClick={() => setModalShow(true)}>
-                    Nuevo
-                </Button>
+                {
+                    isLoading &&
+                    <Spinner className='ms-auto' variant='dark' />
+                }
+                {
+                    !isLoading &&
+                    <Button size='sm' variant="dark" className='ms-auto' onClick={() => setModalShow(true)}>
+                        Nuevo
+                    </Button>
+                }
             </Stack>
             <RegisterPaymentModal onHide={() => setModalShow(false)} show={modalShow} setModalShow={setModalShow} fetchData={fetchAllPaymentsByLoanId} />
-            {paymentsState?.length > 0 &&
+
+            {!isLoading &&
                 <Table responsive striped>
                     <thead>
                         <tr>
