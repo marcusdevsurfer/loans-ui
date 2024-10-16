@@ -42,6 +42,11 @@ export const LoanPaymentScheduleTable = ({ loan }) => {
                 <h1 className="font-title m-0">Calendario de pagos</h1>
                 {isLoading && <Spinner className='ms-auto' variant='dark' />}
             </Stack>
+            {isLoading &&
+                <>
+                    <p className='text-muted text-center'>Cargando pagos, por favor espera.</p>
+                </>
+            }
             {
                 !isLoading &&
                 <Table responsive striped>

@@ -54,7 +54,11 @@ export const LoanPaymentSchedule = ({ loan }) => {
                 }
             </Stack>
             <RegisterPaymentModal onHide={() => setModalShow(false)} show={modalShow} setModalShow={setModalShow} fetchData={fetchAllPaymentsByLoanId} />
-
+            {isLoading &&
+                <>
+                    <p className='text-muted text-center'>Cargando pagos, por favor espera.</p>
+                </>
+            }
             {!isLoading &&
                 <Table responsive striped>
                     <thead>
