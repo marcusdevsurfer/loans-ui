@@ -6,12 +6,9 @@ import { useEffect, useState } from 'react'
 export const LoanPaymentScheduleTable = ({ loan }) => {
     const { id } = loan
     const API_URL_BASE = import.meta.env.VITE_API_URL;
-    const API_URL_COMPLEMENT = `/api/loan/${parseInt(id)}/payments`
+    const API_URL_COMPLEMENT = `/api/payments/${id}`
     const API_URL = `${API_URL_BASE}${API_URL_COMPLEMENT}`
-
     const [paymentsState, setPaymentsState] = useState([])
-    const [modalShow, setModalShow] = useState(false);
-
     useEffect(() => {
         fetchAllPaymentsByLoanId(id)
     }, [])
@@ -24,7 +21,7 @@ export const LoanPaymentScheduleTable = ({ loan }) => {
         try {
             const response = await fetch(API_URL, REQUEST_OPTIONS)
             const data = await response.json()
-            setPaymentsState(data.payments)
+            setPaymentsState(data)
         } catch {
             (e) => console.log(e)
         }

@@ -2,21 +2,22 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import { useParams } from 'wouter';
 
-export const RegisterPaymentModal = ({ loanId, show, setModalShow, fetchData, onHide }) => {
-
+export const RegisterPaymentModal = ({ show, setModalShow, fetchData, onHide }) => {
+    const { id } = useParams()
     const API_URL_BASE = import.meta.env.VITE_API_URL;
-    const API_URL_COMPLEMENT = "/api"
+    const API_URL_COMPLEMENT = "/api/payments/save"
     const API_URL = `${API_URL_BASE}${API_URL_COMPLEMENT}`
 
     const [dateState, setDateState] = useState("")
     const [amountState, setAmountState] = useState("")
 
-    const savePayment = async (date, amount, loanID) => {
+    const savePayment = async (date, amount, loanId) => {
         let data = {
             "date": date,
             "amount": amount,
-            "loanId": loanID
+            "loanId": loanId
         }
         const REQUEST_OPTIONS = {
             method: 'POST',
@@ -37,10 +38,10 @@ export const RegisterPaymentModal = ({ loanId, show, setModalShow, fetchData, on
         }
     }
 
-    const handleForm = (e) => {
+    const handleForm = async (e) => {
         e.preventDefault()
-        savePayment(dateState, amountState, loanId)
-        fetchData(loanId)
+        await savePayment(dateState, amountState, id)
+        await fetchData(id)
         setModalShow(false)
     }
 

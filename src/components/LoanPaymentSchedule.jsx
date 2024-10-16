@@ -5,11 +5,12 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import { useEffect, useState } from 'react'
 import { RegisterPaymentModal } from './RegisterPaymentModal';
+import { useParams } from 'wouter';
 
 export const LoanPaymentSchedule = ({ loan }) => {
-    const { id } = loan
+    const { id } = useParams()
     const API_URL_BASE = import.meta.env.VITE_API_URL;
-    const API_URL_COMPLEMENT = `/api/loan/${parseInt(id)}/payments`
+    const API_URL_COMPLEMENT = `/api/payments/${id}`
     const API_URL = `${API_URL_BASE}${API_URL_COMPLEMENT}`
 
     const [paymentsState, setPaymentsState] = useState([])
@@ -17,7 +18,7 @@ export const LoanPaymentSchedule = ({ loan }) => {
 
     useEffect(() => {
         fetchAllPaymentsByLoanId(id)
-    }, [])
+    }, [id])
 
     const fetchAllPaymentsByLoanId = async (id) => {
         const REQUEST_OPTIONS = {
@@ -27,7 +28,7 @@ export const LoanPaymentSchedule = ({ loan }) => {
         try {
             const response = await fetch(API_URL, REQUEST_OPTIONS)
             const data = await response.json()
-            setPaymentsState(data.payments)
+            setPaymentsState(data)
         } catch {
             (e) => console.log(e)
         }
@@ -41,8 +42,8 @@ export const LoanPaymentSchedule = ({ loan }) => {
                     Nuevo
                 </Button>
             </Stack>
-            <RegisterPaymentModal loanId={id} onHide={() => setModalShow(false)} show={modalShow} setModalShow={setModalShow} fetchData={fetchAllPaymentsByLoanId} />
-            {paymentsState.length > 0 &&
+            <RegisterPaymentModal onHide={() => setModalShow(false)} show={modalShow} setModalShow={setModalShow} fetchData={fetchAllPaymentsByLoanId} />
+            {paymentsState?.length > 0 &&
                 <Table responsive striped>
                     <thead>
                         <tr>
