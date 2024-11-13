@@ -3,12 +3,11 @@ import { fetchLoanById } from '../service/LoanService'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import Spinner from 'react-bootstrap/Spinner'
 import '../App.css'
 import './css/LoanDetails.css'
 
 export const LoanDetails = ({ loanId }) => {
-    // const interestTotal = (amount * interestRate) / 100
-    // const loanTotalAmount = (interestTotal + amount)
     const [loanState, setLoanState] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -19,7 +18,6 @@ export const LoanDetails = ({ loanId }) => {
                 setIsLoading(false)
             })
             .catch(error => {
-                setLoanState(null)
                 console.error(error)
             })
     }, [loanId])
@@ -31,11 +29,13 @@ export const LoanDetails = ({ loanId }) => {
         });
     };
 
-    // const installmentAmount = (loanTotalAmount / installments)
     return (
-        isLoading ? <h1>Cargando...</h1> :
             <Container className='loan-details-card'>
                 <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
+                {
+                    isLoading &&
+                    <Spinner className='ms-auto text-center' variant='dark' />
+                }
                 {
                     loanState &&
                     <Row className='align-items-center' >
@@ -52,10 +52,6 @@ export const LoanDetails = ({ loanId }) => {
                             <p className='font-text'>{loanState?.interestRate}%</p>
                         </Col>
                     </Row>
-                }
-                {
-                    loanState === null &&
-                    <h1>Not found</h1>
                 }
             </Container>
     )
