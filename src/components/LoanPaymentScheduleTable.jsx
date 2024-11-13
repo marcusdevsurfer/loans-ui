@@ -8,7 +8,6 @@ import { useParams } from 'wouter'
 
 export const LoanPaymentScheduleTable = ({ loan }) => {
     const { id } = useParams()
-
     const API_URL_BASE = import.meta.env.VITE_API_URL;
     const API_URL_COMPLEMENT = `/api/payments/${id}`
     const API_URL = `${API_URL_BASE}${API_URL_COMPLEMENT}`
