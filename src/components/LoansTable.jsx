@@ -2,8 +2,16 @@ import Table from 'react-bootstrap/Table'
 import Stack from 'react-bootstrap/Stack'
 import { Link } from 'wouter'
 import './css/LoansTable.css'
+import { useEffect, useState } from 'react'
+import { fetchAndSetLoans } from '../service/LoanService'
 
-export const LoansTable = ({ loans }) => {
+export const LoansTable = () => {
+    const [loansState, setLoansState] = useState([])
+
+    useEffect(() => {
+        fetchAndSetLoans(setLoansState)
+    }, [])
+
     return (
         <div className='loans-table-section'>
             <Stack direction='horizontal'>
@@ -20,14 +28,15 @@ export const LoansTable = ({ loans }) => {
                 </thead>
                 <tbody>
                     {
-                        loans.map((loan) =>
-                            <tr key={loan?.id}>
-                                <td>{`${loan?.client}`}</td>
+                        loansState.map((loan) =>
+                            <tr key={loan?._id}>
+                                <td>{`${loan?.borrower}`}</td>
                                 <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
-                                <td>{`${loan?.interest}%`}</td>
-                                <td>{loan?.status === 'active' && 'Activo'}</td>
+                                <td>{`${loan?.interestRate}%`}</td>
+                                {loan?.status === 'approved' && <td>Aprobado</td>}
+                                {loan?.status === 'pending' && <td>Pendiente</td>}
                                 <td>
-                                    <Link href={`admin/loan-details/${loan?.id}`}>
+                                    <Link href={`admin/loan-details/${loan?._id}`}>
                                         <a className='btn btn-sm btn-dark'>Ver</a>
                                     </Link>
                                 </td>
