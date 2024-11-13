@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap"
 import { LoanDetails } from "./LoanDetails"
 import { LoanProgress } from "./LoanProgress"
 
-export const LoanView = ({ id }) => {
+export const LoanAdminView = ({ id }) => {
     return (
         <Container>
             <LoanDetails loanId={id} />
