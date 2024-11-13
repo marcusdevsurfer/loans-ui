@@ -1,80 +1,17 @@
-export const getloans = () => [
-  {
-    "id": 1,
-    "client": "Marco Gonzalez",
-    "amount": 1400,
-    "interest": 0,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 2,
-    "client": "Rosario Ramos",
-    "amount": 8000,
-    "interest": 10,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 3,
-    "client": "Dalia Lavanderia",
-    "amount": 5000,
-    "interest": 10,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 4,
-    "client": "Brenda Bello",
-    "amount": 6000,
-    "interest": 10,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 5,
-    "client": "Ricardo Cobos",
-    "amount": 100000,
-    "interest": 6,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 6,
-    "client": "Rocio Covarrubias",
-    "amount": 10000,
-    "interest": 10,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 7,
-    "client": "Carmen Covarrubias",
-    "amount": 50000,
-    "interest": 20,
-    "status": "active",
-    "date": "date",
-    "installments": 20
-  },
-  {
-    "id": 8,
-    "client": "Salma Salazar",
-    "amount": 10000,
-    "interest": 10,
-    "status": "active",
-    "date": "date"
-  },
-  {
-    "id": 9,
-    "client": "Kevin Mojica",
-    "amount": 3000,
-    "interest": 10,
-    "status": "active",
-    "date": "date",
-    "installments": 3
-  }
-]
+const API_URL_BASE = import.meta.env.VITE_API_URL;
+const API_URL_COMPLEMENT = '/api/loans'
+const API_URL = `${API_URL_BASE}${API_URL_COMPLEMENT}`
 
-export const getLoanById = (id) => {
-  return getloans().find((loan) => loan.id == id)
+export const fetchAndSetLoans = async (setLoans) => {
+  try {
+    const response = await fetch(API_URL)
+    if (response.ok) {
+      const data = await response.json()
+      setLoans(data)
+    } else {
+      console.log('Error en la peticion')
+    }
+  } catch (error) {
+    console.log('Error en la peticion')
+  }
 }
