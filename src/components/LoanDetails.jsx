@@ -1,49 +1,62 @@
+import { useState, useEffect } from 'react'
+import { fetchLoanById } from '../service/LoanService'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
 import '../App.css'
 import './css/LoanDetails.css'
 
-export const LoanDetails = ({ loan }) => {
-    const { amount, interest, installments } = loan
-    const interestTotal = (amount * interest) / 100
-    const loanTotalAmount = (interestTotal + amount)
-    const installmentAmount = (loanTotalAmount / installments)
+export const LoanDetails = ({ loanId }) => {
+    // const interestTotal = (amount * interestRate) / 100
+    // const loanTotalAmount = (interestTotal + amount)
+    const [loanState, setLoanState] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        fetchLoanById(loanId)
+            .then((data) => {
+                setLoanState(data)
+                setIsLoading(false)
+            })
+            .catch(error => {
+                setLoanState(null)
+                console.error(error)
+            })
+    }, [loanId])
+
+    const formatNumber = (number) => {
+        return number.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+    };
+
+    // const installmentAmount = (loanTotalAmount / installments)
     return (
-        <div className='loan-details-card'>
-            <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
-            <Row direction='horizontal'>
-                <Col>
-                    <h5 className='font-subtitle'>Cliente</h5>
-                    <p className='font-text'>{loan?.client}</p>
-                </Col>
-                <Col>
-                    <h5 className='font-subtitle'>Monto de prestamo</h5>
-                    <p className='font-text'>${amount.toLocaleString()}</p>
-                </Col>
-                <Col>
-                    <h5 className='font-subtitle'>Pago total</h5>
-                    <p className='font-text'>${loanTotalAmount.toLocaleString()}</p>
-                </Col>
-            </Row>
-            <Row direction='horizontal'>
+        isLoading ? <h1>Cargando...</h1> :
+            <Container className='loan-details-card'>
+                <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
                 {
-                    installments &&
-                    <Col>
-                        <h5 className='font-subtitle'>Cuotas</h5>
-                        <p className='font-text'>{installments}</p>
-                    </Col>
+                    loanState &&
+                    <Row className='align-items-center' >
+                        <Col>
+                            <h5 className='font-subtitle'>Cliente</h5>
+                            <p className='font-text'>{loanState?.borrower}</p>
+                        </Col>
+                        <Col>
+                            <h5 className='font-subtitle'>Monto de prestamo</h5>
+                            <p className='font-text'>${formatNumber(loanState?.amount)}</p>
+                        </Col>
+                        <Col>
+                            <h5 className='font-subtitle'>Interes</h5>
+                            <p className='font-text'>{loanState?.interestRate}%</p>
+                        </Col>
+                    </Row>
                 }
                 {
-                    interest > 0 && installments &&
-                    <Col>
-                        <h5 className='font-subtitle'>Monto de cuota</h5>
-                        {!loan.installments && <p className='font-text'>{`$${interestTotal.toLocaleString()}`}</p>}
-                        {loan.installments && <p className='font-text'>{`$${installmentAmount.toLocaleString()}`}</p>}
-                    </Col>
+                    loanState === null &&
+                    <h1>Not found</h1>
                 }
-                <Col>
-                </Col>
-            </Row>
-        </div>
+            </Container>
     )
 }
