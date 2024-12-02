@@ -4,7 +4,6 @@ import { DashboardCard } from './components/DashboardCard'
 import { LoansTable } from './components/LoansTable';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Spinner from 'react-bootstrap/Spinner'
 import { CiDollar, CiUser, CiAlignBottom } from "react-icons/ci";
 import './App.css'
 
@@ -42,7 +41,7 @@ function App() {
           <LoansTable />
         }
       </Row>
-      
+
     </Container>
   )
 }
