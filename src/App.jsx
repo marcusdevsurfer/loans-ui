@@ -23,26 +23,27 @@ function App() {
 
   return (
     <Container>
+
       <Row className="justify-content-evenly align-items-center my-4">
         <h1 className='dashboard-title'>Panel de Administracion de Prestamos</h1>
         {
-          isLoading && <Spinner className='ms-auto' variant='dark' />
+          !isLoading &&
+          <>
+            <DashboardCard text={"Total Prestado"} data={sumValuesByKey(loansState, 'amount')} icon={<CiAlignBottom size={'20'} />} dollarSign />
+            <DashboardCard text={"Prestamos Activos"} data={loansState?.length} icon={<CiDollar size={'20'} />} />
+            <DashboardCard text={"Clientes"} data={loansState?.length} icon={<CiUser size={'20'} />} />
+          </>
         }
+      </Row>
+
+      <Row>
         {
           !isLoading &&
-          <DashboardCard text={"Total Prestado"} data={sumValuesByKey(loansState, 'amount')} icon={<CiAlignBottom size={'20'} />} dollarSign />
-        }
-        <DashboardCard text={"Prestamos Activos"} data={loansState?.length} icon={<CiDollar size={'20'} />} />
-        <DashboardCard text={"Clientes"} data={loansState?.length} icon={<CiUser size={'20'} />} />
-      </Row>
-      {
-        !isLoading &&
-        <Row>
           <LoansTable />
-        </Row>
-      }
+        }
+      </Row>
+      
     </Container>
-
   )
 }
 
