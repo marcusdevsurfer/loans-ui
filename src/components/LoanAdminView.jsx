@@ -1,13 +1,19 @@
 import { Container } from "react-bootstrap"
+import PropTypes from 'prop-types';
 import { LoanDetails } from "./LoanDetails"
-import { LoanProgress } from "./LoanProgress"
+import { LoanPaymentSchedule } from "./LoanPaymentSchedule"
 
 export const LoanAdminView = ({ id }) => {
     return (
         <Container>
             <LoanDetails loanId={id} />
-            <LoanProgress loanId={id} />
-            {/* <LoanPaymentSchedule loan={loanState} /> */}
+            <LoanPaymentSchedule loanId={id} />
         </Container>
     )
 }
+LoanAdminView.propTypes = {
+    id: PropTypes.string.isRequired,
+};
+
+
+
