@@ -11,14 +11,17 @@ import { fetchLoans } from '../service/LoanService'
 import { Form } from 'react-bootstrap'
 
 export const LoansTable = () => {
+
     const [loansState, setLoansState] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [showModal, setShowModal] = useState(false)
+    const [borrower, setBorrower] = useState('')    
+    const [amount, setAmount] = useState('')    
+    const [interestRate, setInterestRate] = useState('')    
 
     useEffect(() => {
         fetchData()
     }, [])
-
 
     const fetchData = async () => {
         try {
@@ -35,7 +38,12 @@ export const LoansTable = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('submit')
+        const newLoan = {
+            borrower : borrower,
+            amount: amount,
+            interestRate: interestRate
+        }
+        alert(JSON.stringify(newLoan))
     }
 
     return (
@@ -46,9 +54,9 @@ export const LoansTable = () => {
             </Container>
         ) :
             <div className='loans-table-section'>
-                <Stack direction='horizontal' gap={1}>
+                <Stack className='align-items-center mb-3' direction='horizontal' gap={1}>
 
-                    <h2 className='dashboard-title mb-3'>Lista de prestamos</h2>
+                    <h2 className='dashboard-title p-0 m-0'>Lista de prestamos</h2>
                     <Button size='sm' className='ms-auto' variant="dark" onClick={(handleShow)}>
                         Nuevo
                     </Button>
@@ -60,18 +68,21 @@ export const LoansTable = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="formBasicName" >
+                                <Form.Group className="mb-3" >
                                     <Form.Label>Cliente</Form.Label>
-                                    <Form.Control type="text" placeholder="Cliente" />
+                                    <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) =>setBorrower(e.target.value)} />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
+
+                                <Form.Group className="mb-3">
                                     <Form.Label>Monto</Form.Label>
-                                    <Form.Control type="number" placeholder="Monto" />
+                                    <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) =>setAmount(e.target.value)} />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
+
+                                <Form.Group className="mb-3">
                                     <Form.Label>Interes</Form.Label>
-                                    <Form.Control type="number" placeholder="Interes" />
+                                    <Form.Control type="number" placeholder="Interes" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} />
                                 </Form.Group>
+
                                 <Modal.Footer>
                                     <Button variant="danger" size='sm' onClick={handleClose}>
                                         Cancelar
@@ -80,6 +91,7 @@ export const LoansTable = () => {
                                         Guardar
                                     </Button>
                                 </Modal.Footer>
+
                             </Form>
                         </Modal.Body>
                     </Modal>
