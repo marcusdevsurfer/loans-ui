@@ -47,9 +47,9 @@ export const LoansTable = () => {
         ) :
             <div className='loans-table-section'>
                 <Stack direction='horizontal' gap={1}>
-                    
+
                     <h2 className='dashboard-title mb-3'>Lista de prestamos</h2>
-                    <Button className='ms-auto' variant="dark" onClick={(handleShow)}>
+                    <Button size='sm' className='ms-auto' variant="dark" onClick={(handleShow)}>
                         Nuevo
                     </Button>
 
@@ -73,10 +73,10 @@ export const LoansTable = () => {
                                     <Form.Control type="number" placeholder="Interes" />
                                 </Form.Group>
                                 <Modal.Footer>
-                                    <Button variant="danger" onClick={handleClose}>
+                                    <Button variant="danger" size='sm' onClick={handleClose}>
                                         Cancelar
                                     </Button>
-                                    <Button type='submit' variant="dark">
+                                    <Button type='submit' size='sm' variant="dark">
                                         Guardar
                                     </Button>
                                 </Modal.Footer>
