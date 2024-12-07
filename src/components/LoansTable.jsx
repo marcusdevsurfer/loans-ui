@@ -7,11 +7,10 @@ import Modal from 'react-bootstrap/Modal'
 import { Link } from 'wouter'
 import './css/LoansTable.css'
 import { useEffect, useState } from 'react'
-import { fetchLoans } from '../service/LoanService'
+import { fetchLoans, createLoan } from '../service/LoanService'
 import { Form } from 'react-bootstrap'
 
 export const LoansTable = () => {
-
     const [loansState, setLoansState] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [showModal, setShowModal] = useState(false)
@@ -36,14 +35,26 @@ export const LoansTable = () => {
     const handleShow = () => setShowModal(true)
     const handleClose = () => setShowModal(false)
 
-    const handleSubmit = (e) => {
+    const clearForm = () => {
+        setBorrower('')
+        setAmount('')
+        setInterestRate('') 
+    }
+
+    const handleSubmit = async(e) => {
         e.preventDefault()
+
         const newLoan = {
             borrower : borrower,
             amount: amount,
             interestRate: interestRate
         }
-        alert(JSON.stringify(newLoan))
+        const response = await createLoan(newLoan)
+        if(response.status === 201){
+            clearForm()
+            setShowModal(false)
+            fetchData()
+        }
     }
 
     return (
