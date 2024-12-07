@@ -16,6 +16,17 @@ export const fetchAndSetLoans = async (setLoans) => {
   }
 }
 
+export const fetchLoans = async () => {
+  try {
+    const response = await fetch(API_URL)
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error en la peticion')
+    return error;
+  }
+}
+
 export const fetchLoanById = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`)
