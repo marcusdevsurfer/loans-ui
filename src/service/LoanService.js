@@ -37,19 +37,18 @@ export const createLoan = async (loan) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(loan)
-    })
+    });
     return response;
   } catch (error) {
-    console.error('Error en la peticion')
+    console.error('Error en la peticion');
   }
 }
 
 export const fetchLoanById = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/${id}`)
-    const data = await response.json();
-    return data;
+    const response = await fetch(`${API_URL}/${id}`);
+    return response;
   } catch (error) {
-    console.error('Error en la peticion')
+    console.error('Error en la peticion');
   }
 }
