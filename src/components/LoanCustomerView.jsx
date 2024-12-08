@@ -1,12 +1,12 @@
 import { Container } from "react-bootstrap"
 import { LoanDetails } from "./LoanDetails"
-import { LoanPaymentScheduleTable } from "./LoanPaymentScheduleTable"
+import { LoanPaymentScheduleCustomer } from "./LoanPaymentScheduleCustomer"
 import PropTypes from 'prop-types';
 export const LoanCustomerView = ({ id }) => {
     return (
         <Container>
             <LoanDetails loanId={id} />
-            <LoanPaymentScheduleTable  />
+            <LoanPaymentScheduleCustomer/>
         </Container>
     )
 }
