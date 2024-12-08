@@ -12,7 +12,7 @@ export const fetchPayments = async () => {
 export const fetchPaymentsByLoan = async (id) => {
     try {
         const response = await fetch(`${API_URL}/${id}`)
-        return response.json()
+        return response
     }
     catch (error) {
         console.error('Error:', error)
