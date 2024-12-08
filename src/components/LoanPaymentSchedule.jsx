@@ -19,8 +19,9 @@ export const LoanPaymentSchedule = ({ loanId }) => {
 
     const fetchData = async () => {
         try {
-            const payments = await fetchPaymentsByLoan(loanId)
-            setPaymentsState(payments)
+            const response = await fetchPaymentsByLoan(loanId)
+            const data = await response.json()  
+            setPaymentsState(data)
             setIsLoading(false)
         } catch (error) {
             console.error('Error:', error)
