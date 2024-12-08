@@ -14,13 +14,18 @@ export const LoanPaymentSchedule = ({ loanId }) => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const fetchData = async () => {
+        fetchData()
+    }, [loanId])
+
+    const fetchData = async () => {
+        try {
             const payments = await fetchPaymentsByLoan(loanId)
             setPaymentsState(payments)
             setIsLoading(false)
+        } catch (error) {
+            console.error('Error:', error)
         }
-        fetchData()
-    }, [loanId])
+    }
 
     return (
         <div className='loan-details-card'>
@@ -30,7 +35,7 @@ export const LoanPaymentSchedule = ({ loanId }) => {
                     Nuevo
                 </Button>
             </Stack>
-            <RegisterPaymentModal onHide={() => setModalShow(false)} show={modalShow} setModalShow={setModalShow} />
+            <RegisterPaymentModal onHide={() => setModalShow(false)} show={modalShow} setModalShow={setModalShow} fetchData={fetchData} />
             {
                 !isLoading ?
                     <Table responsive striped>
