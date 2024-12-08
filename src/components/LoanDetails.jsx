@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { fetchLoanById } from '../service/LoanService'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
 import Spinner from 'react-bootstrap/Spinner'
 import '../App.css'
 import './css/LoanDetails.css'
@@ -13,13 +12,20 @@ export const LoanDetails = ({ loanId }) => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const fetchData = async () => { 
-            const loan = await fetchLoanById(loanId)
-            setLoanState(loan)
-            setIsLoading(false)
-        }
         fetchData()
     }, [loanId])
+
+    const fetchData = async () => {
+        try {
+            const response = await fetchLoanById(loanId)
+            const data = await response.json()
+            setLoanState(data)
+            setIsLoading(false)
+        }
+        catch (error) {
+            console.error('Error:', error)
+        }
+    }
 
     const calculateTotalPayment = (amount, interestRate) => {
         return amount + (amount * (interestRate / 100))
@@ -32,35 +38,41 @@ export const LoanDetails = ({ loanId }) => {
         });
     };
 
-    if (isLoading) {
-        return <Spinner className='ms-auto' variant='dark' />
-    }
+
 
     return (
-        <Container className='loan-details-card'>
+        <div className='loan-details-card'>
             <h1 className='font-title mb-4'>Detalles de Prestamo</h1>
             {
-                loanState &&
-                <Row className='align-items-center' >
-                    <Col>
-                        <h5 className='font-subtitle'>Cliente</h5>
-                        <p className='font-text'>{loanState?.borrower}</p>
-                    </Col>
-                    <Col>
-                        <h5 className='font-subtitle'>Monto de prestamo</h5>
-                        <p className='font-text'>${formatNumber(loanState?.amount)}</p>
-                    </Col>
-                    <Col>
-                        <h5 className='font-subtitle'>Interes</h5>
-                        <p className='font-text'>{loanState?.interestRate}%</p>
-                    </Col>
-                    <Col>
-                        <h5 className='font-subtitle'>Pago total</h5>
-                        <p className='font-text'>${formatNumber(calculateTotalPayment(loanState?.amount, loanState?.interestRate))}</p>
-                    </Col>
-                </Row>
+                isLoading
+                    ?
+                    <div className='text-center mt-3'>
+                        <Spinner variant='dark' animation="border" role="status" />
+                        <p className='text-muted'>Cargando detalles del prestamo, por favor espera.</p>
+                    </div>
+
+                    :
+                    <Row className='align-items-center' >
+                        <Col>
+                            <h5 className='font-subtitle'>Cliente</h5>
+                            <p className='font-text'>{loanState?.borrower}</p>
+                        </Col>
+                        <Col>
+                            <h5 className='font-subtitle'>Monto de prestamo</h5>
+                            <p className='font-text'>${formatNumber(loanState?.amount)}</p>
+                        </Col>
+                        <Col>
+                            <h5 className='font-subtitle'>Interes</h5>
+                            <p className='font-text'>{loanState?.interestRate}%</p>
+                        </Col>
+                        <Col>
+                            <h5 className='font-subtitle'>Pago total</h5>
+                            <p className='font-text'>${formatNumber(calculateTotalPayment(loanState?.amount, loanState?.interestRate))}</p>
+                        </Col>
+                    </Row>
+
             }
-        </Container>
+        </div>
     )
 }
 
