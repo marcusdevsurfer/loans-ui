@@ -32,7 +32,7 @@ export const LoanDetails = ({ loanId }) => {
     }
 
     const formatNumber = (number) => {
-        return number.toLocaleString('en-US', {
+        return number?.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
         });
