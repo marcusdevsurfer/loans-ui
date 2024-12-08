@@ -4,11 +4,11 @@ import Spinner from "react-bootstrap/Spinner"
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form' 
 import { Link } from 'wouter'
 import './css/LoansTable.css'
 import { useEffect, useState } from 'react'
 import { fetchLoans, createLoan } from '../service/LoanService'
-import { Form } from 'react-bootstrap'
 
 export const LoansTable = () => {
     const [loansState, setLoansState] = useState([])
