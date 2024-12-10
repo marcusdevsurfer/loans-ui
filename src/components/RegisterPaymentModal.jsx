@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { useParams } from 'wouter';
 import { createPayment } from '../service/PaymentsService';
+import { parseISO, formatISO } from 'date-fns';
 
 export const RegisterPaymentModal = ({ show, setModalShow, fetchData, onHide }) => {
     const { id } = useParams()
@@ -12,9 +13,8 @@ export const RegisterPaymentModal = ({ show, setModalShow, fetchData, onHide }) 
 
     const handleForm = async (e) => {
         e.preventDefault()
-
         const newPayment = {
-            date: dateState,
+            date: formatISO(parseISO(dateState)),
             amount: amountState,
             loan: id
         }
@@ -28,6 +28,10 @@ export const RegisterPaymentModal = ({ show, setModalShow, fetchData, onHide }) 
         } catch (error) {
             console.error('Error:', error)
         }
+    }
+
+    const handleDateChange = (e) => {
+        setDateState(e.target.value)
     }
 
     const clearForm = () => {
@@ -52,7 +56,7 @@ export const RegisterPaymentModal = ({ show, setModalShow, fetchData, onHide }) 
                 <Form onSubmit={(e) => handleForm(e)}>
                     <Form.Group>
                         <Form.Label>Fecha</Form.Label>
-                        <Form.Control value={dateState} required type='date' onChange={(evn) => setDateState(evn.target.value)}></Form.Control>
+                        <Form.Control value={dateState} required type='date' onChange={handleDateChange}></Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Cantidad</Form.Label>
