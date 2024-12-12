@@ -48,7 +48,7 @@ export const ApplyView = () => {
                 </Form.Group>
 
                 <Form.Group className='text-center'>
-                    <button type='submit' className='btn btn-primary'>Enviar solicitud</button>
+                    <button type='submit' className='btn btn-dark'>Enviar solicitud</button>
                 </Form.Group>
             </Form>
         </Container>
