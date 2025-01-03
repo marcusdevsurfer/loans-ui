@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner"
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import Form from 'react-bootstrap/Form' 
+import Form from 'react-bootstrap/Form'
 import { Link } from 'wouter'
 import './css/LoansTable.css'
 import { useEffect, useState } from 'react'
@@ -14,9 +14,9 @@ export const LoansTable = () => {
     const [loansState, setLoansState] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [showModal, setShowModal] = useState(false)
-    const [borrower, setBorrower] = useState('')    
-    const [amount, setAmount] = useState('')    
-    const [interestRate, setInterestRate] = useState('')    
+    const [borrower, setBorrower] = useState('')
+    const [amount, setAmount] = useState('')
+    const [interestRate, setInterestRate] = useState('')
 
     useEffect(() => {
         fetchData()
@@ -38,19 +38,19 @@ export const LoansTable = () => {
     const clearForm = () => {
         setBorrower('')
         setAmount('')
-        setInterestRate('') 
+        setInterestRate('')
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const newLoan = {
-            borrower : borrower,
+            borrower: borrower,
             amount: amount,
             interestRate: interestRate
         }
         const response = await createLoan(newLoan)
-        if(response.status === 201){
+        if (response.status === 201) {
             clearForm()
             setShowModal(false)
             fetchData()
@@ -81,12 +81,12 @@ export const LoansTable = () => {
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Cliente</Form.Label>
-                                    <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) =>setBorrower(e.target.value)} />
+                                    <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) => setBorrower(e.target.value)} />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
                                     <Form.Label>Monto</Form.Label>
-                                    <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) =>setAmount(e.target.value)} />
+                                    <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) => setAmount(e.target.value)} />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
@@ -127,7 +127,10 @@ export const LoansTable = () => {
                                     <td>{`${loan?.interestRate}%`}</td>
                                     <td>
                                         <Link href={`admin/loan-details/${loan?._id}`}>
-                                            <a className='btn btn-sm btn-dark'>Ver</a>
+                                            <a className='m-1 btn btn-sm btn-dark'>Ver administrador</a>
+                                        </Link>
+                                        <Link href={`customer/loan-details/${loan?._id}`}>
+                                            <a className='m-1 btn btn-sm btn-secondary'>Ver usuario</a>
                                         </Link>
                                     </td>
                                 </tr>
