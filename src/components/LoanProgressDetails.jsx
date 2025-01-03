@@ -22,36 +22,36 @@ export const LoanProgressDetails = ({ loanId }) => {
             setPayments(data)
             setIsLoading(false)
         } catch {
-            (e) => console.log(e)
+            (e) => console.error(e)
         }
     }
 
     return (
         <Container className='card'>
-            <h1 className='font-title mb-2'>Progreso</h1>
+            <h1 className='font-title mb-3'>Progreso</h1>
             <Row>
                 {
                     isLoading
                         ?
-                        <Col  className='text-center'>
+                        <Col className='text-center'>
                             <Spinner variant='dark' animation="border" role="status" />
                             <p className='text-muted'>Cargando detalles, por favor espera.</p>
                         </Col>
                         :
                         payments.length > 0
-                        ?
-                        <>
-                            <Col>
-                                {`Número de pagos realizados: ${payments.length}`}
+                            ?
+                            <>
+                                <Col>
+                                    <p>
+                                        Pagos realizados
+                                    </p>
+                                    <p className='font-title'>10</p>
+                                </Col>
+                            </>
+                            :
+                            <Col className='text-center'>
+                                No hay pagos realizados
                             </Col>
-                            <Col>
-                                Monto total pagado
-                            </Col>
-                        </>
-                        :
-                        <Col className='text-center'>
-                            No hay pagos realizados
-                        </Col>
                 }
             </Row>
         </Container >
