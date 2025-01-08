@@ -45,12 +45,12 @@ export const LoanProgressDetails = ({ loanId }) => {
                                     <p>
                                         Pagos realizados
                                     </p>
-                                    <p className='font-title'>10</p>
+                                    <p className='font-title'>{payments.length}</p>
                                 </Col>
                             </>
                             :
                             <Col className='text-center'>
-                                No hay pagos realizados
+                                <p className='text-muted'>No hay pagos registrados</p>
                             </Col>
                 }
             </Row>
