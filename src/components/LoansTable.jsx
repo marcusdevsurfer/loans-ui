@@ -115,7 +115,7 @@ export const LoansTable = () => {
                             <th className='text-secondary'>Cliente</th>
                             <th className='text-secondary'>Monto</th>
                             <th className='text-secondary'>Interes</th>
-                            <th className='text-secondary'>Detalles</th>
+                            <th className='text-secondary text-end'>Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,7 +125,7 @@ export const LoansTable = () => {
                                     <td>{`${loan?.borrower}`}</td>
                                     <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
                                     <td>{`${loan?.interestRate}%`}</td>
-                                    <td>
+                                    <td className='text-end'>
                                         <Link href={`admin/loan-details/${loan?._id}`}>
                                             <a className='m-1 btn btn-sm btn-dark'>Ver administrador</a>
                                         </Link>
