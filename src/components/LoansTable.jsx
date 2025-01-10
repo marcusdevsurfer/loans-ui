@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
+import { CiShare1 } from "react-icons/ci";
 import { Link } from 'wouter'
 import './css/LoansTable.css'
 import { useEffect, useState } from 'react'
@@ -121,16 +122,20 @@ export const LoansTable = () => {
                     <tbody>
                         {
                             loansState.map((loan) =>
-                                <tr key={loan?._id}>
-                                    <td>{`${loan?.borrower}`}</td>
+                                <tr className="" style={{ verticalAlign: 'middle' }} key={loan?._id}>
+                                    <td className=''>{`${loan?.borrower}`}</td>
                                     <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
-                                    <td>{`${loan?.interestRate}%`}</td>
+                                    <td >{`${loan?.interestRate}%`}</td>
                                     <td className='text-end'>
                                         <Link href={`admin/loan-details/${loan?._id}`}>
-                                            <a className='m-1 btn btn-sm btn-dark'>Ver administrador</a>
+                                            <Button size='sm' className='m-1' variant='dark'>
+                                                <CiShare1 size='20' /> Admin
+                                            </Button>
                                         </Link>
                                         <Link href={`customer/loan-details/${loan?._id}`}>
-                                            <a className='m-1 btn btn-sm btn-secondary'>Ver usuario</a>
+                                            <Button size='sm' className='m-1' variant='secondary'>                                         
+                                                <CiShare1 size='20' /> Cliente
+                                            </Button>
                                         </Link>
                                     </td>
                                 </tr>
