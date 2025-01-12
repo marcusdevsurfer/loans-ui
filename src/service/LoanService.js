@@ -47,7 +47,8 @@ export const createLoan = async (loan) => {
 export const fetchLoanById = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`);
-    return response;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error en la peticion');
   }
