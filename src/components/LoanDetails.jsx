@@ -17,8 +17,7 @@ export const LoanDetails = ({ loanId }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetchLoanById(loanId)
-            const data = await response.json()
+            const data = await fetchLoanById(loanId)
             setLoanState(data)
             setIsLoading(false)
         }
