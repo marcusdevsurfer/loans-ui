@@ -13,6 +13,9 @@ import { fetchLoans, createLoan } from '../service/LoanService'
 
 export const LoansTable = () => {
     const [loansState, setLoansState] = useState([])
+    const [allLoans, setAllLoans] = useState([])    
+    const [paidLoans, setPaidLoans] = useState([])
+    const [pendingLoans, setPendingLoans] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [showModal, setShowModal] = useState(false)
     const [borrower, setBorrower] = useState('')
@@ -26,7 +29,12 @@ export const LoansTable = () => {
     const fetchData = async () => {
         try {
             const loans = await fetchLoans()
+            const paidLoans = loans.filter(loan => loan.status === 'paid')
+            const pendingLoans = loans.filter(loan => loan.status === 'pending')
             setLoansState(loans)
+            setAllLoans(loans)  
+            setPaidLoans(paidLoans)
+            setPendingLoans(pendingLoans)
             setIsLoading(false)
         } catch (err) {
             console.log(err)
@@ -44,7 +52,6 @@ export const LoansTable = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         const newLoan = {
             borrower: borrower,
             amount: amount,
@@ -67,9 +74,8 @@ export const LoansTable = () => {
         ) :
             <div className='loans-table-section'>
                 <Stack className='align-items-center mb-3' direction='horizontal' gap={1}>
-
                     <h2 className='dashboard-title p-0 m-0'>Lista de prestamos</h2>
-                    <Button size='sm' className='ms-auto' variant="dark" onClick={(handleShow)}>
+                    <Button className='ms-auto' variant="dark" onClick={(handleShow)}>
                         Nuevo
                     </Button>
 
@@ -108,7 +114,17 @@ export const LoansTable = () => {
                         </Modal.Body>
                     </Modal>
                     {/* End Modal */}
-
+                </Stack>
+                <Stack className='mb-3' direction='horizontal' gap={3}>
+                    <Button onClick={() => setLoansState(allLoans)} variant='outline-dark'>
+                        Todos
+                    </Button>
+                    <Button onClick={() => setLoansState(pendingLoans)} variant='outline-dark'>
+                        En progreso
+                    </Button>
+                    <Button onClick={() => setLoansState(paidLoans)} variant='outline-dark'>
+                        Pagados
+                    </Button>
                 </Stack>
                 <Table responsive striped borderless>
                     <thead>
@@ -133,7 +149,7 @@ export const LoansTable = () => {
                                             </Button>
                                         </Link>
                                         <Link href={`customer/loan-details/${loan?._id}`}>
-                                            <Button size='sm' className='m-1' variant='secondary'>                                         
+                                            <Button size='sm' className='m-1' variant='secondary'>
                                                 <CiShare1 size='20' /> Cliente
                                             </Button>
                                         </Link>
