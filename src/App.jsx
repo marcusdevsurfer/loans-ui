@@ -36,10 +36,7 @@ function App() {
       </Row>
 
       <Row>
-        {
-          !isLoading &&
           <LoansTable />
-        }
       </Row>
 
     </Container>
