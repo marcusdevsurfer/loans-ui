@@ -26,18 +26,12 @@ export const LoanDetails = ({ loanId }) => {
         }
     }
 
-    const calculateTotalPayment = (amount, interestRate) => {
-        return amount + (amount * (interestRate / 100))
-    }
-
     const formatNumber = (number) => {
         return number?.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
         });
     };
-
-
 
     return (
         <div className='loan-details-card'>
