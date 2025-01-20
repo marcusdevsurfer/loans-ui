@@ -64,12 +64,7 @@ export const LoanDetails = ({ loanId }) => {
                             <h5 className='font-subtitle'>Interes</h5>
                             <p className='font-text'>{loanState?.interestRate}%</p>
                         </Col>
-                        <Col>
-                            <h5 className='font-subtitle'>Pago total</h5>
-                            <p className='font-text'>${formatNumber(calculateTotalPayment(loanState?.amount, loanState?.interestRate))}</p>
-                        </Col>
                     </Row>
-
             }
         </div>
     )
