@@ -13,7 +13,7 @@ import { fetchLoans, createLoan } from '../service/LoanService'
 
 export const LoansTable = () => {
     const [loansState, setLoansState] = useState([])
-    const [allLoans, setAllLoans] = useState([])    
+    const [allLoans, setAllLoans] = useState([])
     const [paidLoans, setPaidLoans] = useState([])
     const [pendingLoans, setPendingLoans] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -32,7 +32,7 @@ export const LoansTable = () => {
             const paidLoans = loans.filter(loan => loan.status === 'paid')
             const pendingLoans = loans.filter(loan => loan.status === 'pending')
             setLoansState(loans)
-            setAllLoans(loans)  
+            setAllLoans(loans)
             setPaidLoans(paidLoans)
             setPendingLoans(pendingLoans)
             setIsLoading(false)
@@ -126,23 +126,23 @@ export const LoansTable = () => {
                         Pagados
                     </Button>
                 </Stack>
-                <Table responsive striped borderless>
+                <Table responsive striped borderless className='align-middle text-center'>
                     <thead>
                         <tr>
                             <th className='text-secondary'>Cliente</th>
                             <th className='text-secondary'>Monto</th>
                             <th className='text-secondary'>Interes</th>
-                            <th className='text-secondary text-end'>Detalles</th>
+                            <th className='text-secondary'>Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             loansState.map((loan) =>
-                                <tr className="" style={{ verticalAlign: 'middle' }} key={loan?._id}>
+                                <tr key={loan?._id}>
                                     <td className=''>{`${loan?.borrower}`}</td>
                                     <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
                                     <td >{`${loan?.interestRate}%`}</td>
-                                    <td className='text-end'>
+                                    <td>
                                         <Link href={`admin/loan-details/${loan?._id}`}>
                                             <Button size='sm' className='m-1' variant='dark'>
                                                 <CiShare1 size='20' /> Admin
