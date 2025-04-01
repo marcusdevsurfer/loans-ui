@@ -73,47 +73,46 @@ export const LoansTable = () => {
             </Container>
         ) :
             <div className='loans-table-section'>
+                
+                {/* Modal */}
+                <Modal show={showModal} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Nuevo Prestamo</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" >
+                                <Form.Label>Cliente</Form.Label>
+                                <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) => setBorrower(e.target.value)} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Monto</Form.Label>
+                                <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Interes</Form.Label>
+                                <Form.Control type="number" placeholder="Interes" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} />
+                            </Form.Group>
+
+                            <Modal.Footer>
+                                <Button variant="danger" size='sm' onClick={handleClose}>
+                                    Cancelar
+                                </Button>
+                                <Button type='submit' size='sm' variant="dark">
+                                    Guardar
+                                </Button>
+                            </Modal.Footer>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+                {/* End Modal */}
                 <Stack className='align-items-center mb-3' direction='horizontal' gap={1}>
                     <h2 className='dashboard-title p-0 m-0'>Lista de prestamos</h2>
                     <Button className='ms-auto' variant="dark" onClick={(handleShow)}>
                         Nuevo
                     </Button>
-
-                    {/* Modal */}
-                    <Modal show={showModal} onHide={handleClose} centered>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Nuevo Prestamo</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" >
-                                    <Form.Label>Cliente</Form.Label>
-                                    <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) => setBorrower(e.target.value)} />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Monto</Form.Label>
-                                    <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Interes</Form.Label>
-                                    <Form.Control type="number" placeholder="Interes" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} />
-                                </Form.Group>
-
-                                <Modal.Footer>
-                                    <Button variant="danger" size='sm' onClick={handleClose}>
-                                        Cancelar
-                                    </Button>
-                                    <Button type='submit' size='sm' variant="dark">
-                                        Guardar
-                                    </Button>
-                                </Modal.Footer>
-
-                            </Form>
-                        </Modal.Body>
-                    </Modal>
-                    {/* End Modal */}
                 </Stack>
                 <Stack className='mb-3' direction='horizontal' gap={3}>
                     <Button onClick={() => setLoansState(allLoans)} variant='outline-dark'>

@@ -4,7 +4,7 @@ import './css/DashboardCard.css'
 
 export const DashboardCard = ({ text, data, icon, dollarSign = false }) => {
     return (
-        <Col xs='12' md='3' lg='3'>
+        <Col xs='12' md='6'>
             <Card className='m-1 p-1'>
                 <Card.Header className='d-flex justify-content-between align-items-center bg-white border-0 '>
                     <Card.Text className='card-title m-0'>{`${text}`}</Card.Text>
