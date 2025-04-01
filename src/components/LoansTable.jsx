@@ -13,7 +13,7 @@ import { fetchLoans, createLoan } from '../service/LoanService'
 
 export const LoansTable = () => {
     const [loansState, setLoansState] = useState([])
-    const [allLoans, setAllLoans] = useState([])    
+    const [allLoans, setAllLoans] = useState([])
     const [paidLoans, setPaidLoans] = useState([])
     const [pendingLoans, setPendingLoans] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -32,7 +32,7 @@ export const LoansTable = () => {
             const paidLoans = loans.filter(loan => loan.status === 'paid')
             const pendingLoans = loans.filter(loan => loan.status === 'pending')
             setLoansState(loans)
-            setAllLoans(loans)  
+            setAllLoans(loans)
             setPaidLoans(paidLoans)
             setPendingLoans(pendingLoans)
             setIsLoading(false)
@@ -73,47 +73,46 @@ export const LoansTable = () => {
             </Container>
         ) :
             <div className='loans-table-section'>
+                
+                {/* Modal */}
+                <Modal show={showModal} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Nuevo Prestamo</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" >
+                                <Form.Label>Cliente</Form.Label>
+                                <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) => setBorrower(e.target.value)} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Monto</Form.Label>
+                                <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Interes</Form.Label>
+                                <Form.Control type="number" placeholder="Interes" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} />
+                            </Form.Group>
+
+                            <Modal.Footer>
+                                <Button variant="danger" size='sm' onClick={handleClose}>
+                                    Cancelar
+                                </Button>
+                                <Button type='submit' size='sm' variant="dark">
+                                    Guardar
+                                </Button>
+                            </Modal.Footer>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+                {/* End Modal */}
                 <Stack className='align-items-center mb-3' direction='horizontal' gap={1}>
                     <h2 className='dashboard-title p-0 m-0'>Lista de prestamos</h2>
                     <Button className='ms-auto' variant="dark" onClick={(handleShow)}>
                         Nuevo
                     </Button>
-
-                    {/* Modal */}
-                    <Modal show={showModal} onHide={handleClose} centered>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Nuevo Prestamo</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" >
-                                    <Form.Label>Cliente</Form.Label>
-                                    <Form.Control type="text" placeholder="Cliente" value={borrower} onChange={(e) => setBorrower(e.target.value)} />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Monto</Form.Label>
-                                    <Form.Control type="number" placeholder="Monto" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Interes</Form.Label>
-                                    <Form.Control type="number" placeholder="Interes" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} />
-                                </Form.Group>
-
-                                <Modal.Footer>
-                                    <Button variant="danger" size='sm' onClick={handleClose}>
-                                        Cancelar
-                                    </Button>
-                                    <Button type='submit' size='sm' variant="dark">
-                                        Guardar
-                                    </Button>
-                                </Modal.Footer>
-
-                            </Form>
-                        </Modal.Body>
-                    </Modal>
-                    {/* End Modal */}
                 </Stack>
                 <Stack className='mb-3' direction='horizontal' gap={3}>
                     <Button onClick={() => setLoansState(allLoans)} variant='outline-dark'>
@@ -126,23 +125,23 @@ export const LoansTable = () => {
                         Pagados
                     </Button>
                 </Stack>
-                <Table responsive striped borderless>
+                <Table responsive striped borderless className='align-middle text-center'>
                     <thead>
                         <tr>
                             <th className='text-secondary'>Cliente</th>
                             <th className='text-secondary'>Monto</th>
                             <th className='text-secondary'>Interes</th>
-                            <th className='text-secondary text-end'>Detalles</th>
+                            <th className='text-secondary'>Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             loansState.map((loan) =>
-                                <tr className="" style={{ verticalAlign: 'middle' }} key={loan?._id}>
+                                <tr key={loan?._id}>
                                     <td className=''>{`${loan?.borrower}`}</td>
                                     <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
                                     <td >{`${loan?.interestRate}%`}</td>
-                                    <td className='text-end'>
+                                    <td>
                                         <Link href={`admin/loan-details/${loan?._id}`}>
                                             <Button size='sm' className='m-1' variant='dark'>
                                                 <CiShare1 size='20' /> Admin

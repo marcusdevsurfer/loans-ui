@@ -20,25 +20,28 @@ function App() {
     return collection.map((e) => e[key]).reduce((pv, cv) => pv + cv, 0);
   }
 
+  const filterPendingLoans = (loans) => {
+    return loans.filter(loan => loan.status === "pending")
+  }
+
   return (
     <Container>
-
-      <Row className="justify-content-evenly align-items-center my-4">
-        <h1 className='dashboard-title'>Panel de Administracion de Prestamos</h1>
+      <Row className='mt-3 mb-4'>
+        <h1 className='dashboard-title'>Panel de Administración de Préstamos</h1>
+      </Row>
+      <Row className="justify-content-evenly px-2 py-3 border rounded mb-2">
+        <h2 className='dashboard-title'>Resumen</h2>
         {
           !isLoading &&
           <>
-            <DashboardCard text={"Total Prestado"} data={sumValuesByKey(loansState, 'amount')} icon={<CiAlignBottom size={'20'} />} dollarSign />
-            <DashboardCard text={"Prestamos Activos"} data={loansState?.length} icon={<CiDollar size={'20'} />} />
-            <DashboardCard text={"Clientes"} data={loansState?.length} icon={<CiUser size={'20'} />} />
+            <DashboardCard text={"Total Prestado"} data={sumValuesByKey(filterPendingLoans(loansState), 'amount')} icon={<CiAlignBottom color='#000' size={'20'} />} dollarSign />
+            <DashboardCard text={"Préstamos Activos"} data={filterPendingLoans(loansState)?.length} icon={<CiDollar color='#000' size={'20'} />} />
           </>
         }
       </Row>
-
       <Row>
-          <LoansTable />
+        <LoansTable />
       </Row>
-
     </Container>
   )
 }
