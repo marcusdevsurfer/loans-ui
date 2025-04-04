@@ -6,6 +6,11 @@
     font-weight: bold;
 }
 
+.container-bg {
+    min-height: 100vh;
+    z-index: 0;
+}
+
 .font-title {
     font-size: 1.5rem;
     font-weight: bold;
