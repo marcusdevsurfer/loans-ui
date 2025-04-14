@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { fetchLoanById } from '../service/LoanService'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Spinner from 'react-bootstrap/Spinner'
@@ -9,6 +8,7 @@ import './css/LoanDetails.css'
 
 export const LoanDetails = ({ loanId }) => {
     const [loanState, setLoanState] = useState(null)
+    const [personState, setPersonState] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -17,12 +17,21 @@ export const LoanDetails = ({ loanId }) => {
 
     const fetchData = async () => {
         try {
-            const data = await fetchLoanById(loanId)
-            setLoanState(data)
+            //Fetch Loan
+            const loanResponse = await fetch(`http://localhost:8081/api/v1/loans/get/${loanId}`)
+            const loanData = await loanResponse.json()
+            setLoanState(loanData)
+            //Fetch Person
+            const personResponse = await fetch(`http://localhost:8081/api/v1/persons/get/${loanData.personId}`)
+            const personData = await personResponse.json()
+            setPersonState(personData)
             setIsLoading(false)
         }
         catch (error) {
             console.error('Error:', error)
+        }
+        finally{
+            setIsLoading(false)
         }
     }
 
@@ -43,12 +52,11 @@ export const LoanDetails = ({ loanId }) => {
                         <Spinner variant='dark' animation="border" role="status" />
                         <p className='text-muted'>Cargando detalles del prestamo, por favor espera.</p>
                     </div>
-
                     :
                     <Row className='align-items-center' >
                         <Col>
                             <h5 className='font-subtitle'>Cliente</h5>
-                            <p className='font-text'>{loanState?.borrower}</p>
+                            <p className='font-text'>{personState?.name}</p>
                         </Col>
                         <Col>
                             <h5 className='font-subtitle'>Monto de prestamo</h5>

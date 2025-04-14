@@ -17,9 +17,16 @@ function App() {
   }, [])
 
   const fetchData = async () => {
-    const response = await fetchLoans()
-    setLoansState(response)
-    setIsLoading(false)
+    //const response = await fetchLoans()
+    try {
+      const response = await fetch("http://localhost:8081/api/v1/loans")
+      const data = await response.json()
+      setLoansState(data)
+      setIsLoading(false)
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
   const sumValuesByKey = (collection, key) => {
@@ -27,7 +34,7 @@ function App() {
   }
 
   const filterPendingLoans = (loans) => {
-    return loans.filter(loan => loan.status === "pending")
+    return loans.filter(loan => loan.status === "PENDING")
   }
 
   return (

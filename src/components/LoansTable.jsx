@@ -18,8 +18,9 @@ export const LoansTable = ({ data, fetchData }) => {
     const [interestRate, setInterestRate] = useState('')
 
     useEffect(() => {
-        filterLoansByStatus('pending')
+        filterLoansByStatus('PENDING')
     }, [])
+
 
     const filterLoansByStatus = (status) => {
         const loansFiltered = data.filter(loan => loan.status === status)
@@ -96,7 +97,7 @@ export const LoansTable = ({ data, fetchData }) => {
                 <Button onClick={() => setLoansState(data)} variant='outline-dark'>
                     Todos
                 </Button>
-                <Button onClick={() => filterLoansByStatus('pending')} variant='outline-dark'>
+                <Button onClick={() => filterLoansByStatus('PENDING')} variant='outline-dark'>
                     En progreso
                 </Button>
                 <Button onClick={() => filterLoansByStatus('paid')} variant='outline-dark'>
@@ -116,17 +117,17 @@ export const LoansTable = ({ data, fetchData }) => {
                 <tbody>
                     {
                         loansState.map((loan) =>
-                            <tr key={loan?._id}>
-                                <td className=''>{`${loan?.borrower}`}</td>
+                            <tr key={loan.id}>
+                                <td className=''>{`jajaj`}</td>
                                 <td>{`$${loan?.amount.toLocaleString('en')}`}</td>
                                 <td >{`${loan?.interestRate}%`}</td>
                                 <td>
-                                    <Link href={`admin/loan-details/${loan?._id}`}>
+                                    <Link href={`admin/loan-details/${loan?.id}`}>
                                         <Button size='sm' className='m-1' variant='dark'>
                                             <CiShare1 size='20' /> Admin
                                         </Button>
                                     </Link>
-                                    <Link href={`customer/loan-details/${loan?._id}`}>
+                                    <Link href={`customer/loan-details/${loan?.id}`}>
                                         <Button size='sm' className='m-1' variant='secondary'>
                                             <CiShare1 size='20' /> Cliente
                                         </Button>
