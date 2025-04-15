@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { fetchLoans } from './service/LoanService';
 import { DashboardCard } from './components/DashboardCard'
 import { LoansTable } from './components/LoansTable';
 import Container from 'react-bootstrap/Container'
